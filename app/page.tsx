@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button';
+import { Button } from '@/shared/ui/button';
 
 export default function Home() {
   return (
-      <Button variant="outline">Корзина</Button>
+    <h1>Hello</h1>
   );
 }
