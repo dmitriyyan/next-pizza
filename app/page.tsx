@@ -3,13 +3,99 @@ import { Title } from '@/shared/ui/title';
 import { TopBar } from '@/components/top-bar';
 import React from 'react';
 import { Filters } from '@/components/filters/filters';
+import { ProductsGroupList } from '@/components/product-group-list';
 
 const categories = [
-  { name: 'Все', id: 'all', products: [] },
-  { name: 'Мясные', id: 'meat', products: [] },
-  { name: 'Вегетарианские', id: 'vegetarian', products: [] },
-  { name: 'Гриль', id: 'grill', products: [] },
-  { name: 'Острые', id: 'spicy', products: [] },
+  {
+    name: 'Все',
+    id: 1,
+    products: [
+      {
+        id: 11,
+        name: 'Пицца',
+        imageUrl: 'https://placehold.co/215',
+        ingredients: [],
+        items: [
+          {
+            id: 111,
+            price: 100,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Мясные',
+    id: 2,
+    products: [
+      {
+        id: 21,
+        name: 'Пицца',
+        imageUrl: 'https://placehold.co/215',
+        ingredients: [],
+        items: [
+          {
+            id: 211,
+            price: 100,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Вегетарианские',
+    id: 3,
+    products: [
+      {
+        id: 31,
+        name: 'Пицца',
+        imageUrl: 'https://placehold.co/215',
+        ingredients: [],
+        items: [
+          {
+            id: 311,
+            price: 100,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Гриль',
+    id: 4,
+    products: [
+      {
+        id: 41,
+        name: 'Пицца',
+        imageUrl: 'https://placehold.co/215',
+        ingredients: [],
+        items: [
+          {
+            id: 411,
+            price: 100,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Острые',
+    id: 5,
+    products: [
+      {
+        id: 51,
+        name: 'Пицца',
+        imageUrl: 'https://placehold.co/215',
+        ingredients: [],
+        items: [
+          {
+            id: 511,
+            price: 100,
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export default function Home() {
@@ -32,13 +118,14 @@ export default function Home() {
               {categories.map(
                 (category) =>
                   category.products.length > 0 && (
-                    // <ProductsGroupList
-                    //   key={category.id}
-                    //   title={category.name}
-                    //   categoryId={category.id}
-                    //   items={category.products}
-                    // />
-                    <div key={category.id}>{category.name}</div>
+                    <div key={category.id}>
+                      <ProductsGroupList
+                        title={category.name}
+                        categoryId={category.id}
+                        items={category.products}
+                      />
+                      <div>{category.name}</div>
+                    </div>
                   ),
               )}
             </div>

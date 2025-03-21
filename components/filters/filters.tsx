@@ -18,6 +18,14 @@ export const Filters: React.FC<Props> = ({ className }) => {
     { id: 1, name: 'Мясо' },
     { id: 2, name: 'Овощи' },
     { id: 3, name: 'Сыр' },
+    { id: 4, name: 'Бекон' },
+    { id: 5, name: 'Курица' },
+    { id: 6, name: 'Салями' },
+    { id: 7, name: 'Ветчина' },
+    { id: 8, name: 'Шампиньоны' },
+    { id: 9, name: 'Сырный соус' },
+    { id: 10, name: 'Томатный соус' },
+    { id: 11, name: 'Салат' },
   ];
   const loading = false;
   // TODO: uncomment when filters are ready
@@ -32,7 +40,9 @@ export const Filters: React.FC<Props> = ({ className }) => {
     selectedIngredients: new Set<string>(),
     setPizzaTypes: () => {},
     setSizes: () => {},
-    setPrices: (name: string, value: number) => {},
+    setPrices: (name: string, value: number) => {
+      console.log(name, value);
+    },
     setSelectedIngredients: () => {},
   };
 
@@ -41,6 +51,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
   const items = ingredients.map((item) => ({ value: String(item.id), text: item.name }));
 
   const updatePrices = (prices: number[]) => {
+    console.log(prices);
   // filters.setPrices('priceFrom', prices[0]);
   // filters.setPrices('priceTo', prices[1]);
   };

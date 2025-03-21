@@ -6,6 +6,7 @@ import { Dialog, DialogContent } from '@/shared/ui/dialog';
 import React from 'react';
 import { LoginForm } from './auth-forms/login-form';
 import { RegisterForm } from './auth-forms/register-form';
+import Image from 'next/image';
 
 interface Props {
   open: boolean;
@@ -44,7 +45,11 @@ export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
             }
             type="button"
             className="gap-2 h-12 p-2 flex-1">
-            <img className="w-6 h-6" src="https://github.githubassets.com/favicons/favicon.svg" />
+            <Image
+              className="w-6 h-6"
+              src="https://github.githubassets.com/favicons/favicon.svg"
+              alt="github"
+            />
             GitHub
           </Button>
 
@@ -58,9 +63,10 @@ export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
             }
             type="button"
             className="gap-2 h-12 p-2 flex-1">
-            <img
+            <Image
               className="w-6 h-6"
               src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg"
+              alt="google"
             />
             Google
           </Button>

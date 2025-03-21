@@ -13,7 +13,7 @@ export const ProfileButton: React.FC<Props> = ({ className, onClickSignIn }) => 
   // TODO: uncomment when auth is ready
   // const { data: session } = useSession();
   // TODO: remove this when auth is ready
-  const [session, setSession] = React.useState(false);
+  const [session] = React.useState(false);
 
   return (
     <div className={className}>

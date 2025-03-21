@@ -2,11 +2,11 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { TFormLoginValues, formLoginSchema } from './schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Title } from '@/shared/ui/title';
 import { FormInput } from '@/shared/ui/form-input';
 import { Button } from '@/shared/ui/button';
 import toast from 'react-hot-toast';
 import { DialogDescription, DialogTitle } from '@/shared/ui/dialog';
+import Image from 'next/image';
 // import { signIn } from 'next-auth/react';
 
 interface Props {
@@ -34,6 +34,7 @@ export const LoginForm: React.FC<Props> = ({ onClose }) => {
       //   throw Error();
       // }
       // TODO: remove this when login is ready
+      console.log(data);
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       toast.success('Вы успешно вошли в аккаунт', {
@@ -61,7 +62,7 @@ export const LoginForm: React.FC<Props> = ({ onClose }) => {
               <p className="text-gray-400">Введите свою почту, чтобы войти в свой аккаунт</p>
             </DialogDescription>
           </div>
-          <img src="/assets/images/phone-icon.png" alt="phone-icon" width={60} height={60} />
+          <Image src="/assets/images/phone-icon.png" alt="phone-icon" width={60} height={60} />
         </div>
 
         <FormInput name="email" label="E-Mail" required />

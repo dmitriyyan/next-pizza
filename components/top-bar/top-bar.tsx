@@ -9,7 +9,7 @@ interface Props {
   // TODO: uncomment when category store is ready
   // categories: Category[];
   // TODO: remove this when category store is ready
-  categories: { name: string; id: string }[];
+  categories: { name: string; id: number }[];
   className?: string;
 }
 

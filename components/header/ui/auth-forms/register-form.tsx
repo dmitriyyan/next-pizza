@@ -12,10 +12,9 @@ import { DialogTitle } from '@/shared/ui/dialog';
 
 interface Props {
   onClose?: VoidFunction;
-  onClickLogin?: VoidFunction;
 }
 
-export const RegisterForm: React.FC<Props> = ({ onClose, onClickLogin }) => {
+export const RegisterForm: React.FC<Props> = ({ onClose }) => {
   const form = useForm<TFormRegisterValues>({
     resolver: zodResolver(formRegisterSchema),
     defaultValues: {
@@ -35,6 +34,7 @@ export const RegisterForm: React.FC<Props> = ({ onClose, onClickLogin }) => {
       //   password: data.password,
       // });
       // TODO: remove this when register is ready
+      console.log(data);
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       toast.error('Регистрация успешна 📝. Подтвердите свою почту', {
@@ -42,7 +42,7 @@ export const RegisterForm: React.FC<Props> = ({ onClose, onClickLogin }) => {
       });
 
       onClose?.();
-    } catch (error) {
+    } catch {
       return toast.error('Неверный E-Mail или пароль', {
         icon: '❌',
       });
