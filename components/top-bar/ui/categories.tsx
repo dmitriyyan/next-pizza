@@ -3,14 +3,11 @@
 import { cn } from '@/shared/lib/utils';
 import Link from 'next/link';
 import { useCategoryStore } from '@/shared/store/category';
-// import { Category } from '@prisma/client';
+import type { Category } from '@prisma/client';
 import React from 'react';
 
 interface Props {
-  // TODO: uncomment when category store is ready
-  // items: Category[];
-  // TODO: remove this when category store is ready
-  items: { name: string; id: number }[];
+  items: Category[];
   className?: string;
 }
 

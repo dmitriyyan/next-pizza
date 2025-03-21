@@ -1,20 +1,17 @@
 import Link from 'next/link';
 import React from 'react';
-import { Title } from "@/shared/ui/title";
-import { Button } from "@/shared/ui/button";
+import { Title } from '@/shared/ui/title';
+import { Button } from '@/shared/ui/button';
 import { Plus } from 'lucide-react';
 import Image from 'next/image';
-// import { Ingredient } from '@prisma/client';
+import type { Ingredient } from '@prisma/client';
 
 interface Props {
   id: number;
   name: string;
   price: number;
   imageUrl: string;
-  // TODO: add type for ingredients
-  // ingredients: Ingredient[];
-  // TODO: remove when we have ingredients
-  ingredients: { name: string }[];
+  ingredients: Ingredient[];
   className?: string;
 }
 
