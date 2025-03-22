@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/shared/lib/utils';
-// import { Api } from '@/shared/services/api-client';
+import { search } from '@/shared/api/products';
 import type { Product } from '@prisma/client';
 import { Search } from 'lucide-react';
 import Image from 'next/image';
@@ -26,10 +26,8 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
   useDebounce(
     async () => {
       try {
-        // TODO: remove this when api is ready
-        // const response = await Api.products.search(searchQuery);
-        // setProducts(response);
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        const response = await search(searchQuery);
+        setProducts(response);
       } catch (error) {
         console.log(error);
       }
@@ -87,6 +85,8 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
                   className="rounded-sm h-8 w-8"
                   src={product.imageUrl}
                   alt={product.name}
+                  width={292}
+                  height={292}
                 />
                 <span>{product.name}</span>
               </Link>

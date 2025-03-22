@@ -14,6 +14,27 @@ const nextConfig: NextConfig = {
         pathname: '/**',
         search: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.inappstory.ru',
+        port: '',
+        pathname: '/**',
+        search: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.dodostatic.net',
+        port: '',
+        pathname: '/**',
+        search: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'media.dodostatic.net',
+        port: '',
+        pathname: '/**',
+        search: '',
+      },
     ],
   },
 };

@@ -7,20 +7,11 @@ import { Title } from '@/shared/ui/title';
 import { cn } from '@/shared/lib/utils';
 import { ProductCard } from './product-card';
 import { useCategoryStore } from '@/shared/store/category';
-// import { ProductWithRelations } from '@/@types/prisma';
+import { ProductWithRelations } from '@/shared/model/product-with-relations';
 
 interface Props {
   title: string;
-  // TODO: uncomment when product with relations is ready
-  // items: ProductWithRelations[];
-  // TODO: remove this when product with relations is ready
-  items: {
-    id: number;
-    name: string;
-    imageUrl: string;
-    ingredients: { name: string }[];
-    items: { price: number }[];
-  }[];
+  items: ProductWithRelations[];
   categoryId: number;
   className?: string;
   listClassName?: string;
