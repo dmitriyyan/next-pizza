@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/shared/lib/utils';
-import { search } from '@/shared/api/products';
+import { searchProducts } from '@/shared/api';
 import type { Product } from '@prisma/client';
 import { Search } from 'lucide-react';
 import Image from 'next/image';
@@ -26,7 +26,7 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
   useDebounce(
     async () => {
       try {
-        const response = await search(searchQuery);
+        const response = await searchProducts(searchQuery);
         setProducts(response);
       } catch (error) {
         console.log(error);

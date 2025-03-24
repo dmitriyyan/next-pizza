@@ -2,103 +2,28 @@ import { Container } from '@/shared/ui/container';
 import { Title } from '@/shared/ui/title';
 import { TopBar } from '@/components/top-bar';
 import React from 'react';
-import { Filters } from '@/components/filters/filters';
+import { Filters } from '@/components/filters';
 import { ProductsGroupList } from '@/components/product-group-list';
+import { prisma } from '@/prisma/prisma-client';
 
-const categories = [
-  {
-    name: 'Все',
-    id: 1,
-    products: [
-      {
-        id: 11,
-        name: 'Пицца',
-        imageUrl: 'https://placehold.co/215',
-        ingredients: [],
-        items: [
-          {
-            id: 111,
-            price: 100,
-          },
-        ],
+async function getCategories() {
+  const categories = await prisma.category.findMany({
+    include: {
+      products: {
+        include: {
+          items: true,
+          ingredients: true,
+        },
       },
-    ],
-  },
-  {
-    name: 'Мясные',
-    id: 2,
-    products: [
-      {
-        id: 21,
-        name: 'Пицца',
-        imageUrl: 'https://placehold.co/215',
-        ingredients: [],
-        items: [
-          {
-            id: 211,
-            price: 100,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    name: 'Вегетарианские',
-    id: 3,
-    products: [
-      {
-        id: 31,
-        name: 'Пицца',
-        imageUrl: 'https://placehold.co/215',
-        ingredients: [],
-        items: [
-          {
-            id: 311,
-            price: 100,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    name: 'Гриль',
-    id: 4,
-    products: [
-      {
-        id: 41,
-        name: 'Пицца',
-        imageUrl: 'https://placehold.co/215',
-        ingredients: [],
-        items: [
-          {
-            id: 411,
-            price: 100,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    name: 'Острые',
-    id: 5,
-    products: [
-      {
-        id: 51,
-        name: 'Пицца',
-        imageUrl: 'https://placehold.co/215',
-        ingredients: [],
-        items: [
-          {
-            id: 511,
-            price: 100,
-          },
-        ],
-      },
-    ],
-  },
-];
+    },
+  });
 
-export default function Home() {
+  return categories;
+}
+
+export default async function Home() {
+  const categories = await getCategories();
+
   return (
     <>
       <Container className="mt-10">
