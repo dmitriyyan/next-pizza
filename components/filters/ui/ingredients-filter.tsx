@@ -1,9 +1,8 @@
 'use client';
 import React from 'react';
 import { CheckboxFiltersGroup } from './checkbox-filters-group';
-import { useIngredients } from '@/shared/model/ingredients';
+import { useIngredients } from '../api/use-ingredients';
 import { Skeleton } from '@/shared/ui/skeleton';
-
 export const IngredientsFilter = () => {
   const { ingredients, loading } = useIngredients();
 

@@ -4,27 +4,22 @@ import { cn } from '@/shared/lib/utils';
 import React from 'react';
 import { Button } from '@/shared/ui/button';
 import { ArrowRight, ShoppingCart } from 'lucide-react';
-// import { CartDrawer } from './cart-drawer/cart-drawer';
-// import { useCartStore } from '@/shared/store';
+import { useCartStore } from '@/shared/store/cart';
 
 interface Props {
   className?: string;
 }
 
 export const CartButton: React.FC<Props> = ({ className }) => {
-  // TODO: uncomment when cart store is ready
-  // const [totalAmount, items, loading] = useCartStore((state) => [
-  //   state.totalAmount,
-  //   state.items,
-  //   state.loading,
-  // ]);
-  // TODO: remove this when cart store is ready
-  const [totalAmount, items, loading] = [0, [], false];
+  const totalAmount = useCartStore((state) => state.totalAmount);
+  const items = useCartStore((state) => state.items);
+  const loading = useCartStore((state) => state.loading);
 
   return (
     <Button
       loading={loading}
-      className={cn('group relative', { 'w-[105px]': loading }, className)}>
+      className={cn('group relative', { 'w-[105px]': loading }, className)}
+    >
       <b>{totalAmount} ₽</b>
       <span className="h-full w-[1px] bg-white/30 mx-3" />
       <div className="flex items-center gap-1 transition duration-300 group-hover:opacity-0">
