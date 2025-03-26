@@ -1,7 +1,7 @@
 import { Container } from '@/shared/ui/container';
 import { prisma } from '@/prisma/prisma-client';
 import { notFound } from 'next/navigation';
-import { ProductForm } from '@/components/product-form';
+import { ProductForm } from '@/features/product-form';
 
 async function getProduct(id: string) {
   const product = await prisma.product.findFirst({

@@ -1,10 +1,10 @@
 import { CartDTO, CartItemDTO } from '@/shared/api';
 import { CartStateItem } from './types';
 
-interface ReturnProps {
+type ReturnProps = {
   items: CartStateItem[];
   totalAmount: number;
-}
+};
 
 export const getCartDetails = (data: CartDTO): ReturnProps => {
   const items = data.items.map((item) => ({

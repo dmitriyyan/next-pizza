@@ -1,9 +1,9 @@
 import { Container } from '@/shared/ui/container';
 import { Title } from '@/shared/ui/title';
-import { TopBar } from '@/components/top-bar';
+import { TopBar } from '@/features/top-bar';
 import React from 'react';
-import { Filters } from '@/components/filters';
-import { ProductsGroupList } from '@/components/product-group-list';
+import { Filters } from '@/features/filters';
+import { ProductsGroupList } from '@/features/product-group-list';
 import { prisma } from '@/prisma/prisma-client';
 
 async function getCategories() {

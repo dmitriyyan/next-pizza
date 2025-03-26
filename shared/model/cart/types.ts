@@ -1,3 +1,5 @@
+import { PizzaSize, PizzaType } from '../pizza-option';
+
 export type CartStateItem = {
   id: number;
   quantity: number;
@@ -5,7 +7,17 @@ export type CartStateItem = {
   imageUrl: string;
   price: number;
   disabled?: boolean;
-  pizzaSize?: number | null;
-  pizzaType?: number | null;
+  pizzaSize?: PizzaSize | null;
+  pizzaType?: PizzaType | null;
   ingredients: Array<{ name: string; price: number }>;
+};
+
+export type CartItemProps = {
+  id: number;
+  imageUrl: string;
+  details: string;
+  name: string;
+  price: number;
+  quantity: number;
+  disabled?: boolean;
 };

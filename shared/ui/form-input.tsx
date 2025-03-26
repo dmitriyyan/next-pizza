@@ -4,14 +4,21 @@ import { useFormContext } from 'react-hook-form';
 import { Input } from '@/shared/ui/input';
 import { ErrorText } from '@/shared/ui/error-text';
 import { ClearButton } from '@/shared/ui/clear-button';
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+
+type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   name: string;
   label?: string;
   required?: boolean;
   className?: string;
-}
+};
 
-export const FormInput: React.FC<Props> = ({ className, name, label, required, ...props }) => {
+export const FormInput: React.FC<Props> = ({
+  className,
+  name,
+  label,
+  required,
+  ...props
+}) => {
   const {
     register,
     formState: { errors },

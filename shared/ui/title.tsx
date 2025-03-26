@@ -3,11 +3,11 @@ import { cn } from '@/shared/lib/utils';
 
 type TitleSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
-interface Props {
+type Props = {
   size?: TitleSize;
   className?: string;
   text: string;
-}
+};
 
 export const Title: React.FC<Props> = ({ text, size = 'sm', className }) => {
   const mapTagBySize = {

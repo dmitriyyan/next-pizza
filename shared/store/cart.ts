@@ -1,16 +1,16 @@
 import { create } from 'zustand';
-import { CartStateItem } from '../model/cart/types';
-import { CreateCartItemValues } from '../api';
+import { CartStateItem } from '@/shared/model/cart';
+import { CreateCartItemValues } from '@/shared/api';
 import {
   getCart,
   updateItemQuantity,
   removeCartItem,
   addCartItem,
-} from '../api/cart';
+} from '@/shared/api/cart';
 
-import { getCartDetails } from '../model/cart/utils';
+import { getCartDetails } from '@/shared/model/cart';
 
-export interface CartState {
+export type CartState = {
   loading: boolean;
   error: boolean;
   totalAmount: number;
@@ -27,7 +27,7 @@ export interface CartState {
 
   /* Запрос на удаление товара из корзины */
   removeCartItem: (id: number) => Promise<void>;
-}
+};
 
 export const useCartStore = create<CartState>((set) => ({
   items: [],
