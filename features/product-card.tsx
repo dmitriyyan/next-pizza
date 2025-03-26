@@ -26,7 +26,7 @@ export const ProductCard: React.FC<Props> = ({
   return (
     <div className={className}>
       <Link href={`/product/${id}`}>
-        <div className="flex justify-center p-6 bg-secondary rounded-lg h-[260px]">
+        <div className="flex justify-center p-6 bg-secondary rounded-lg h-[160px] lg:h-[260px]">
           <Image
             className="w-[215px] h-auto object-contain"
             src={imageUrl}
@@ -38,11 +38,11 @@ export const ProductCard: React.FC<Props> = ({
 
         <Title text={name} size="sm" className="mb-1 mt-3 font-bold" />
 
-        <p className="text-sm text-gray-400">
+        <p className="leading-tight lg:leading-normal text-sm text-gray-500">
           {ingredients.map((ingredient) => ingredient.name).join(', ')}
         </p>
 
-        <div className="flex justify-between items-center mt-4">
+        <div className="flex flex-wrap justify-between items-center mt-2">
           <span className="text-[20px]">
             от <b>{price} ₽</b>
           </span>

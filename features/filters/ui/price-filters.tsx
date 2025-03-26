@@ -8,9 +8,9 @@ export const PriceFilters = () => {
   const { prices, setPrices, updatePrices } = useFilters();
 
   return (
-    <div className="mt-5 border-y border-y-neutral-100 py-6 pb-7">
+    <div className="mt-5 border-y border-y-neutral-100 py-6 pr-6 lg:pr-0 pb-7">
       <p className="font-bold mb-3">Цена от и до:</p>
-      <div className="flex gap-3 mb-5">
+      <div className="flex gap-2 mb-5">
         <Input
           type="number"
           placeholder="0"
@@ -28,7 +28,6 @@ export const PriceFilters = () => {
           onChange={(e) => setPrices('priceTo', Number(e.target.value))}
         />
       </div>
-
       <RangeSlider
         min={0}
         max={1000}

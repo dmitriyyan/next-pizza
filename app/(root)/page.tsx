@@ -31,12 +31,10 @@ export default async function Home() {
       </Container>
       <TopBar categories={categories} />
       <Container className="mt-10 pb-14">
-        <div className="flex gap-[80px]">
-          <div className="w-[250px]">
-            <React.Suspense>
-              <Filters />
-            </React.Suspense>
-          </div>
+        <div className="flex gap-[50px] lg:gap-[80px]">
+          <React.Suspense>
+            <Filters className="w-[180px] lg:w-[250px]" />
+          </React.Suspense>
 
           <div className="flex-1">
             <div className="flex flex-col gap-16">

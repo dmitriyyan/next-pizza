@@ -21,16 +21,22 @@ export const Title: React.FC<Props> = ({ text, size = 'sm', className }) => {
 
   const mapClassNameBySize = {
     xs: 'text-[16px]',
-    sm: 'text-[22px]',
-    md: 'text-[26px]',
-    lg: 'text-[32px]',
-    xl: 'text-[40px]',
-    '2xl': 'text-[48px]',
+    sm: 'text-[16px] lg:text-[22px]',
+    md: 'text-[22px] lg:text-[26px]',
+    lg: 'text-[26px] lg:text-[32px]',
+    xl: 'text-[32px] lg:text-[40px]',
+    '2xl': 'text-[40px] lg:text-[48px]',
   } as const;
 
   return React.createElement(
     mapTagBySize[size],
-    { className: cn(mapClassNameBySize[size], className) },
+    {
+      className: cn(
+        mapClassNameBySize[size],
+        'leading-tight lg:leading-normal',
+        className,
+      ),
+    },
     text,
   );
 };

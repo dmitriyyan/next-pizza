@@ -1,6 +1,11 @@
 import { prisma } from '@/prisma/prisma-client';
 import { NextRequest, NextResponse } from 'next/server';
 import { updateCartTotalAmount } from '../lib';
+import { z } from 'zod';
+
+const updateCartItemSchema = z.object({
+  quantity: z.number(),
+});
 
 export async function PATCH(
   req: NextRequest,
@@ -8,11 +13,13 @@ export async function PATCH(
 ) {
   try {
     const id = Number(params.id);
-    const data = (await req.json()) as { quantity: number };
     const token = req.cookies.get('cartToken')?.value;
 
     if (!token) {
-      return NextResponse.json({ error: 'Cart token not found' });
+      return NextResponse.json(
+        { error: 'Не удалось получить токен корзины' },
+        { status: 401 },
+      );
     }
 
     const cartItem = await prisma.cartItem.findFirst({
@@ -22,7 +29,19 @@ export async function PATCH(
     });
 
     if (!cartItem) {
-      return NextResponse.json({ error: 'Cart item not found' });
+      return NextResponse.json({ error: 'Товар не найден' }, { status: 404 });
+    }
+
+    const body = await req.json();
+    const result = updateCartItemSchema.safeParse(body);
+
+    if (!result.success) {
+      return NextResponse.json(
+        {
+          error: 'Некорректный запрос',
+        },
+        { status: 400 },
+      );
     }
 
     await prisma.cartItem.update({
@@ -30,7 +49,7 @@ export async function PATCH(
         id,
       },
       data: {
-        quantity: data.quantity,
+        quantity: result.data.quantity,
       },
     });
 
@@ -54,7 +73,10 @@ export async function DELETE(
     const token = req.cookies.get('cartToken')?.value;
 
     if (!token) {
-      return NextResponse.json({ error: 'Cart token not found' });
+      return NextResponse.json(
+        { error: 'Не удалось получить токен корзины' },
+        { status: 401 },
+      );
     }
 
     const cartItem = await prisma.cartItem.findFirst({
@@ -64,7 +86,7 @@ export async function DELETE(
     });
 
     if (!cartItem) {
-      return NextResponse.json({ error: 'Cart item not found' });
+      return NextResponse.json({ error: 'Товар не найден' }, { status: 404 });
     }
 
     await prisma.cartItem.delete({
