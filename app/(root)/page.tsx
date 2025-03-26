@@ -49,7 +49,6 @@ export default async function Home() {
                         categoryId={category.id}
                         items={category.products}
                       />
-                      <div>{category.name}</div>
                     </div>
                   ),
               )}

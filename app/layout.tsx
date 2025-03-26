@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
-import { Header } from "@/components/header";
-import "./globals.css";
+import { Providers } from '@/components/providers';
+import './globals.css';
 
 const nunito = Nunito({
   subsets: ['cyrillic'],
@@ -10,8 +10,8 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "Next Пицца",
-  description: "Тренировочный проект для тестирования Next.js",
+  title: 'Next Пицца',
+  description: 'Тренировочный проект Next.js',
 };
 
 export default function RootLayout({
@@ -20,14 +20,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru">
-      <body
-        className={`${nunito.variable} antialiased`}
-      >
-        <Header />
-        <main className="min-h-screen">
-          {children}
-        </main>
+    <html lang="en">
+      <head>
+        <link data-rh="true" rel="icon" href="/logo.png" />
+      </head>
+      <body className={nunito.className}>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
