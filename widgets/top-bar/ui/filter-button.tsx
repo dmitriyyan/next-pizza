@@ -1,3 +1,4 @@
+import React from 'react';
 import { Filters } from '@/features/filters';
 import {
   Sheet,
@@ -26,7 +27,9 @@ export const FilterButton = ({ className }: { className?: string }) => {
         <SheetTitle hidden>Фильтры</SheetTitle>
         <SheetDescription hidden>Фильтрация товаров</SheetDescription>
         <div className="flex flex-col gap-6">
-          <Filters className="w-full" />
+          <React.Suspense>
+            <Filters className="w-full" />
+          </React.Suspense>
         </div>
       </SheetContent>
     </Sheet>

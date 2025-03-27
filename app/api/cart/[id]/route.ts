@@ -9,10 +9,10 @@ const updateCartItemSchema = z.object({
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const id = Number(params.id);
+    const { id } = await params;
     const token = req.cookies.get('cartToken')?.value;
 
     if (!token) {
@@ -24,7 +24,7 @@ export async function PATCH(
 
     const cartItem = await prisma.cartItem.findFirst({
       where: {
-        id,
+        id: Number(id),
       },
     });
 
@@ -46,7 +46,7 @@ export async function PATCH(
 
     await prisma.cartItem.update({
       where: {
-        id,
+        id: Number(id),
       },
       data: {
         quantity: result.data.quantity,
@@ -67,9 +67,10 @@ export async function PATCH(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    const { id } = await params;
     const token = req.cookies.get('cartToken')?.value;
 
     if (!token) {
@@ -81,7 +82,7 @@ export async function DELETE(
 
     const cartItem = await prisma.cartItem.findFirst({
       where: {
-        id: Number(params.id),
+        id: Number(id),
       },
     });
 
@@ -91,7 +92,7 @@ export async function DELETE(
 
     await prisma.cartItem.delete({
       where: {
-        id: Number(params.id),
+        id: Number(id),
       },
     });
 

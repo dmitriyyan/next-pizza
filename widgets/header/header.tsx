@@ -32,7 +32,9 @@ export const Header: React.FC<Props> = ({
             </div>
           </div>
         </Link>
-        <Buttons hasSearch={hasSearch} hasCart={hasCart} />
+        <React.Suspense>
+          <Buttons hasSearch={hasSearch} hasCart={hasCart} />
+        </React.Suspense>
       </Container>
     </header>
   );
