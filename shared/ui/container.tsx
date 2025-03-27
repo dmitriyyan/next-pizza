@@ -1,3 +1,4 @@
+import React from 'react';
 import { cn } from '@/shared/lib/utils';
 
 type Props = {
@@ -9,7 +10,7 @@ export const Container: React.FC<React.PropsWithChildren<Props>> = ({
   children,
 }) => {
   return (
-    <div className={cn('mx-auto px-4 max-w-[1280px]', className)}>
+    <div className={cn('mx-auto px-4 sm:px-6 max-w-[1280px]', className)}>
       {children}
     </div>
   );

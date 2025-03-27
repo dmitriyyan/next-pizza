@@ -1,9 +1,13 @@
 import { Header } from '@/widgets/header';
-import type { Metadata } from 'next';
-import { Suspense } from 'react';
+import type { Metadata, Viewport } from 'next';
 
 export const metadata: Metadata = {
   title: 'Next Pizza | Главная',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function HomeLayout({
@@ -16,9 +20,7 @@ export default function HomeLayout({
   return (
     <>
       <main className="min-h-screen">
-        <Suspense>
-          <Header />
-        </Suspense>
+        <Header />
         {children}
       </main>
       {modal}
