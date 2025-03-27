@@ -1,4 +1,4 @@
-import { getIngredients } from '@/shared/api/ingredients';
+import { getIngredients } from '@/shared/api';
 import { Ingredient } from '@prisma/client';
 import React from 'react';
 

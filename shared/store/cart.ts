@@ -6,7 +6,7 @@ import {
   updateItemQuantity,
   removeCartItem,
   addCartItem,
-} from '@/shared/api/cart';
+} from '@/shared/api';
 
 import { getCartDetails } from '@/shared/model/cart';
 

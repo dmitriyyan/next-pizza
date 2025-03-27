@@ -4,25 +4,15 @@ import { TopBar } from '@/widgets/top-bar';
 import React from 'react';
 import { Filters } from '@/features/filters';
 import { ProductsGroupList } from '@/features/product-group-list';
-import { prisma } from '@/prisma/prisma-client';
+import { findPizzas, GetSearchParams } from './_lib/prisma-queries';
 
-async function getCategories() {
-  const categories = await prisma.category.findMany({
-    include: {
-      products: {
-        include: {
-          items: true,
-          ingredients: true,
-        },
-      },
-    },
-  });
-
-  return categories;
-}
-
-export default async function Home() {
-  const categories = await getCategories();
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<GetSearchParams>;
+}) {
+  const query = await searchParams;
+  const categories = await findPizzas(query);
 
   return (
     <>

@@ -16,10 +16,10 @@ import {
 import Link from 'next/link';
 import { Button } from '@/shared/ui/button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { CartDrawerItem } from './ui/cart-drawer-item';
+import { CartItem } from '@/shared/ui/cart-item';
 import { getCartItemDetails } from '@/shared/lib/cart';
 import { cn } from '@/shared/lib/utils';
-import { useCart } from './model/useCart';
+import { useCart } from '@/shared/model/cart';
 
 export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { totalAmount, updateItemQuantity, items, removeCartItem } = useCart();
@@ -86,7 +86,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
               <div className="mt-5 overflow-auto flex-1">
                 {items.map((item) => (
                   <div key={item.id} className="mb-2">
-                    <CartDrawerItem
+                    <CartItem
                       id={item.id}
                       imageUrl={item.imageUrl}
                       details={getCartItemDetails(

@@ -2,7 +2,7 @@ import { cn } from '@/shared/lib/utils';
 import React from 'react';
 
 import { CartItemProps } from '@/shared/model/cart';
-import { CountButton } from './count-button';
+import { CountButton } from './ui/count-button';
 import { Trash2Icon } from 'lucide-react';
 import Image from 'next/image';
 
@@ -12,7 +12,7 @@ type Props = CartItemProps & {
   className?: string;
 };
 
-export const CartDrawerItem: React.FC<Props> = ({
+export const CartItem: React.FC<Props> = ({
   imageUrl,
   name,
   price,
