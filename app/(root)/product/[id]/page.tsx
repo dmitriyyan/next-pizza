@@ -23,6 +23,13 @@ async function getProduct(id: string) {
   return product;
 }
 
+export async function generateStaticParams() {
+  const products = await prisma.product.findMany();
+  return products.map((product) => ({
+    id: product.id.toString(),
+  }));
+}
+
 export default async function ProductPage({
   params,
 }: {

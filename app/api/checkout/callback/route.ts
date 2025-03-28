@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { z } from 'zod';
 
-export const PaymentCallbackSchema = z.object({
+const PaymentCallbackSchema = z.object({
   type: z.string(),
   event: z.string(),
   object: z.object({
@@ -39,8 +39,6 @@ export const PaymentCallbackSchema = z.object({
     }),
   }),
 });
-
-export type PaymentCallbackData = z.infer<typeof PaymentCallbackSchema>;
 
 export async function POST(req: NextRequest) {
   try {
