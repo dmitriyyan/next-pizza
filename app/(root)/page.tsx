@@ -5,7 +5,7 @@ import React from 'react';
 import { Filters } from '@/features/filters';
 import { ProductsGroupList } from '@/features/product-group-list';
 import { findPizzas, GetSearchParams } from './_lib/prisma-queries';
-
+import { Stories } from '@/widgets/stories';
 export default async function Home({
   searchParams,
 }: {
@@ -22,6 +22,7 @@ export default async function Home({
         </div>
       </Container>
       <TopBar categories={categories} />
+      <Stories />
       <Container className="mt-6 md:mt-10 pb-14">
         <div className="flex gap-10 md:gap-16">
           <React.Suspense>

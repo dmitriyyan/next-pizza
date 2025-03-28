@@ -9,31 +9,18 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'placehold.co',
-        port: '',
-        pathname: '/**',
-        search: '',
-      },
-      {
-        protocol: 'https',
         hostname: 'cdn.inappstory.ru',
-        port: '',
         pathname: '/**',
-        search: '',
       },
       {
         protocol: 'https',
         hostname: 'cdn.dodostatic.net',
-        port: '',
         pathname: '/**',
-        search: '',
       },
       {
         protocol: 'https',
         hostname: 'media.dodostatic.net',
-        port: '',
         pathname: '/**',
-        search: '',
       },
     ],
   },
