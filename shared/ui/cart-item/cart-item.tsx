@@ -26,7 +26,7 @@ export const CartItem: React.FC<Props> = ({
   return (
     <div
       className={cn(
-        'flex bg-white p-5 gap-6',
+        'flex flex-wrap bg-white p-5 gap-6',
         {
           'opacity-50 pointer-events-none': disabled,
         },
@@ -53,11 +53,13 @@ export const CartItem: React.FC<Props> = ({
 
         <hr className="my-3" />
 
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-2">
           <CountButton onClick={onClickCountButton} value={quantity} />
 
-          <div className="flex items-center gap-3">
-            <h2 className="font-bold">{price} ₽</h2>
+          <div className="flex items-center gap-2">
+            <h3 className="font-bold text-sm md:text-base text-nowrap">
+              {price} ₽
+            </h3>
             <Trash2Icon
               onClick={onClickRemove}
               className="text-gray-400 cursor-pointer hover:text-gray-600"

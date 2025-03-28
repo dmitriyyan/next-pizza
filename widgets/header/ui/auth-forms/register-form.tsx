@@ -4,7 +4,6 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import toast from 'react-hot-toast';
-// import { registerUser } from '@/app/actions';
 import { TFormRegisterValues, formRegisterSchema } from './schemas';
 import { FormInput } from '@/shared/ui/form-input';
 import { Button } from '@/shared/ui/button';
@@ -12,9 +11,14 @@ import { DialogTitle } from '@/shared/ui/dialog';
 
 type Props = {
   onClose?: VoidFunction;
+  onSubmitAction: (data: {
+    email: string;
+    fullName: string;
+    password: string;
+  }) => Promise<void>;
 };
 
-export const RegisterForm: React.FC<Props> = ({ onClose }) => {
+export const RegisterForm: React.FC<Props> = ({ onClose, onSubmitAction }) => {
   const form = useForm<TFormRegisterValues>({
     resolver: zodResolver(formRegisterSchema),
     defaultValues: {
@@ -27,15 +31,11 @@ export const RegisterForm: React.FC<Props> = ({ onClose }) => {
 
   const onSubmit = async (data: TFormRegisterValues) => {
     try {
-      // TODO: uncomment when register is ready
-      // await registerUser({
-      //   email: data.email,
-      //   fullName: data.fullName,
-      //   password: data.password,
-      // });
-      // TODO: remove this when register is ready
-      console.log(data);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await onSubmitAction({
+        email: data.email,
+        fullName: data.fullName,
+        password: data.password,
+      });
 
       toast.error('Регистрация успешна 📝. Подтвердите свою почту', {
         icon: '✅',

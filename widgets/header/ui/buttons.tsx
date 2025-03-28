@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { SearchInput } from './search-input';
-import { Auth } from './auth';
 import { CartButton } from './cart-button';
 import { Search, ShoppingCart } from 'lucide-react';
 import { CartDrawer } from '@/features/cart-drawer';
@@ -12,9 +11,11 @@ import { useToast } from '../model/use-toast';
 export const Buttons = ({
   hasSearch,
   hasCart,
+  children,
 }: {
   hasSearch: boolean;
   hasCart: boolean;
+  children: React.ReactNode;
 }) => {
   const [mobileSearchVisible, setMobileSearchVisible] = React.useState(false);
   const cartItems = useCartStore((state) => state.items);
@@ -44,7 +45,7 @@ export const Buttons = ({
         </>
       )}
       <div className="hidden md:flex items-center gap-3">
-        <Auth />
+        {children}
         {hasCart && <CartButton />}
       </div>
 
@@ -58,7 +59,7 @@ export const Buttons = ({
             <Search className="h-5 w-5" />
           </button>
         )}
-
+        {children}
         {hasCart && (
           <CartDrawer>
             <button

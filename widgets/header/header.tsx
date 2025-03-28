@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { cn } from '@/shared/lib/utils';
 import { Container } from '@/shared/ui/container';
 import { Buttons } from './ui/buttons';
-
+import { Auth } from './ui/auth';
+import { registerUser } from '@/app/(root)/actions';
 type Props = {
   hasSearch?: boolean;
   hasCart?: boolean;
@@ -33,7 +34,9 @@ export const Header: React.FC<Props> = ({
           </div>
         </Link>
         <React.Suspense>
-          <Buttons hasSearch={hasSearch} hasCart={hasCart} />
+          <Buttons hasSearch={hasSearch} hasCart={hasCart}>
+            <Auth registerAction={registerUser} />
+          </Buttons>
         </React.Suspense>
       </Container>
     </header>

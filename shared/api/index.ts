@@ -8,3 +8,4 @@ export {
 } from './cart';
 export { ApiRoutes } from './constants';
 export type { CartDTO, CreateCartItemValues, CartItemDTO } from './dto';
+export { getMe } from './auth';

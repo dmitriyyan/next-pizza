@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { signIn } from 'next-auth/react';
 import { TFormLoginValues, formLoginSchema } from './schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormInput } from '@/shared/ui/form-input';
@@ -7,7 +8,6 @@ import { Button } from '@/shared/ui/button';
 import toast from 'react-hot-toast';
 import { DialogDescription, DialogTitle } from '@/shared/ui/dialog';
 import Image from 'next/image';
-// import { signIn } from 'next-auth/react';
 
 type Props = {
   onClose?: VoidFunction;
@@ -24,18 +24,14 @@ export const LoginForm: React.FC<Props> = ({ onClose }) => {
 
   const onSubmit = async (data: TFormLoginValues) => {
     try {
-      // TODO: uncomment when login is ready
-      // const resp = await signIn('credentials', {
-      //   ...data,
-      //   redirect: false,
-      // });
+      const resp = await signIn('credentials', {
+        ...data,
+        redirect: false,
+      });
 
-      // if (!resp?.ok) {
-      //   throw Error();
-      // }
-      // TODO: remove this when login is ready
-      console.log(data);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      if (!resp?.ok) {
+        throw Error();
+      }
 
       toast.success('Вы успешно вошли в аккаунт', {
         icon: '✅',

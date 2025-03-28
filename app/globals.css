@@ -113,3 +113,17 @@ html {
     scroll-behavior: auto;
   }
 }
+
+#nprogress .bar {
+  background-color: var(--primary) !important;
+}
+
+#nprogress .peg {
+  box-shadow:
+    0 0 10px var(--primary),
+    0 0 5px var(--primary) !important;
+}
+
+#nprogress .spinner-icon {
+  display: none !important;
+}

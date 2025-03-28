@@ -10,6 +10,7 @@ export const useToast = () => {
 
   React.useEffect(() => {
     let toastMessage = '';
+    let timeoutId: NodeJS.Timeout | undefined;
 
     if (searchParams.has('paid')) {
       toastMessage = 'Заказ успешно оплачен! Информация отправлена на почту.';
@@ -19,13 +20,17 @@ export const useToast = () => {
       toastMessage = 'Почта успешно подтверждена!';
     }
 
-    if (toastMessage) {
-      setTimeout(() => {
+    if (!timeoutId && toastMessage) {
+      timeoutId = setTimeout(() => {
         router.replace('/');
         toast.success(toastMessage, {
-          duration: 3000,
+          duration: 2000,
         });
       }, 1000);
     }
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [searchParams, router]);
 };

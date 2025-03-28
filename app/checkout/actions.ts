@@ -1,12 +1,12 @@
 'use server';
 
 import { prisma } from '@/prisma/prisma-client';
+import ky from 'ky';
+import { PayOrderTemplate } from '@/widgets/email-templates';
 import { CheckoutFormValues } from '@/widgets/checkout-form';
-// import { PayOrderTemplate } from '@/shared/components';
-// import { getUserSession } from '@/shared/lib/get-user-session';
 import { OrderStatus } from '@prisma/client';
-// import { hashSync } from 'bcrypt';
 import { cookies } from 'next/headers';
+import { sendEmail } from '@/app/(root)/_lib/utils';
 
 export async function createOrderAction(data: CheckoutFormValues) {
   try {
@@ -101,9 +101,6 @@ export async function createOrderAction(data: CheckoutFormValues) {
       },
     });
 
-    // TODO: remove
-    return 'test';
-
     const paymentData = await createPayment({
       amount: order.totalAmount,
       orderId: Number(order.id),
@@ -124,16 +121,15 @@ export async function createOrderAction(data: CheckoutFormValues) {
     });
 
     const paymentUrl = paymentData.confirmation.confirmation_url;
-
-    // await sendEmail(
-    //   data.email,
-    //   'Next Pizza / Оплатите заказ #' + order.id,
-    //   PayOrderTemplate({
-    //     orderId: order.id,
-    //     totalAmount: order.totalAmount,
-    //     paymentUrl,
-    //   }),
-    // );
+    await sendEmail(
+      data.email,
+      'Next Pizza / Оплатите заказ #' + order.id,
+      PayOrderTemplate({
+        orderId: Number(order.id),
+        totalAmount: order.totalAmount,
+        paymentUrl,
+      }),
+    );
 
     return paymentUrl;
   } catch (err) {
@@ -141,87 +137,7 @@ export async function createOrderAction(data: CheckoutFormValues) {
   }
 }
 
-// export async function updateUserInfo(body: Prisma.UserUpdateInput) {
-//   try {
-//     const currentUser = await getUserSession();
-
-//     if (!currentUser) {
-//       throw new Error('Пользователь не найден');
-//     }
-
-//     const findUser = await prisma.user.findFirst({
-//       where: {
-//         id: Number(currentUser.id),
-//       },
-//     });
-
-//     await prisma.user.update({
-//       where: {
-//         id: Number(currentUser.id),
-//       },
-//       data: {
-//         fullName: body.fullName,
-//         email: body.email,
-//         password: body.password
-//           ? hashSync(body.password as string, 10)
-//           : findUser?.password,
-//       },
-//     });
-//   } catch (err) {
-//     console.log('Error [UPDATE_USER]', err);
-//     throw err;
-//   }
-// }
-
-// export async function registerUser(body: Prisma.UserCreateInput) {
-//   try {
-//     const user = await prisma.user.findFirst({
-//       where: {
-//         email: body.email,
-//       },
-//     });
-
-//     if (user) {
-//       if (!user.verified) {
-//         throw new Error('Почта не подтверждена');
-//       }
-
-//       throw new Error('Пользователь уже существует');
-//     }
-
-//     const createdUser = await prisma.user.create({
-//       data: {
-//         fullName: body.fullName,
-//         email: body.email,
-//         password: hashSync(body.password, 10),
-//       },
-//     });
-
-//     const code = Math.floor(100000 + Math.random() * 900000).toString();
-
-//     await prisma.verificationCode.create({
-//       data: {
-//         code,
-//         userId: createdUser.id,
-//       },
-//     });
-
-//     await sendEmail(
-//       createdUser.email,
-//       'Next Pizza / 📝 Подтверждение регистрации',
-//       VerificationUserTemplate({
-//         code,
-//       }),
-//     );
-//   } catch (err) {
-//     console.log('Error [CREATE_USER]', err);
-//     throw err;
-//   }
-// }
-
-import ky from 'ky';
-
-export type PaymentData = {
+type PaymentData = {
   id: string;
   status: string;
   amount: Amount;
@@ -235,53 +151,23 @@ export type PaymentData = {
   metadata: Metadata;
 };
 
-export type Amount = {
+type Amount = {
   value: string;
   currency: string;
 };
 
-export type Recipient = {
+type Recipient = {
   account_id: string;
   gateway_id: string;
 };
 
-export type Confirmation = {
+type Confirmation = {
   type: string;
   confirmation_url: string;
 };
 
-export type Metadata = {
+type Metadata = {
   order_id: string;
-};
-
-export type PaymentCallbackData = {
-  type: string;
-  event: string;
-  object: {
-    id: string;
-    status: string;
-    amount: { value: string; currency: 'RUB' };
-    income_amount: { value: string; currency: 'RUB' };
-    description: string;
-    recipient: { account_id: string; gateway_id: string };
-    payment_method: {
-      type: string;
-      id: string;
-      saved: boolean;
-      title: string;
-    };
-    captured_at: string;
-    created_at: string;
-    test: boolean;
-    refunded_amount: { value: string; currency: 'RUB' };
-    paid: boolean;
-    refundable: true;
-    metadata: { order_id: string };
-    authorization_details: {
-      rrn: string;
-      auth_code: string;
-    };
-  };
 };
 
 type Props = {
@@ -290,7 +176,7 @@ type Props = {
   amount: number;
 };
 
-export async function createPayment(details: Props) {
+async function createPayment(details: Props) {
   const response = await ky.post<PaymentData>(
     'https://api.yookassa.ru/v3/payments',
     {

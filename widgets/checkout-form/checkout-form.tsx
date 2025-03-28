@@ -3,6 +3,7 @@
 import toast from 'react-hot-toast';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useSession } from 'next-auth/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCart } from '@/shared/model/cart';
 import { CheckoutFormValues, checkoutFormSchema } from './checkout-form-schema';
@@ -10,8 +11,7 @@ import { CheckoutCart } from './ui/checkout-cart';
 import { CheckoutPersonalForm } from './ui/checkout-personal-form';
 import { CheckoutAddressForm } from './ui/checkout-address-form';
 import { CheckoutSidebar } from './ui/checkout-sidebar';
-
-// import { useSession } from 'next-auth/react';
+import { getMe } from '@/shared/api';
 
 export const CheckoutForm = ({
   onSubmitAction,
@@ -34,22 +34,22 @@ export const CheckoutForm = ({
     mode: 'all',
   });
 
-  // const { data: session } = useSession();
+  const { data: session } = useSession();
 
-  // React.useEffect(() => {
-  //   async function fetchUserInfo() {
-  //     const data = await Api.auth.getMe();
-  //     const [firstName, lastName] = data.fullName.split(' ');
+  React.useEffect(() => {
+    async function fetchUserInfo() {
+      const data = await getMe();
+      const [firstName, lastName] = data.fullName.split(' ');
 
-  //     form.setValue('firstName', firstName);
-  //     form.setValue('lastName', lastName);
-  //     form.setValue('email', data.email);
-  //   }
+      form.setValue('firstName', firstName);
+      form.setValue('lastName', lastName);
+      form.setValue('email', data.email);
+    }
 
-  //   if (session) {
-  //     fetchUserInfo();
-  //   }
-  // }, [session]);
+    if (session) {
+      fetchUserInfo();
+    }
+  }, [session, form]);
 
   const onClickCountButton = (
     id: number,
@@ -81,31 +81,32 @@ export const CheckoutForm = ({
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="flex gap-10">
-          <div className="flex flex-col gap-10 flex-1 mb-20">
-            <CheckoutCart
-              onClickCountButton={onClickCountButton}
-              removeCartItem={removeCartItem}
-              items={items}
-              loading={loading}
-            />
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-wrap gap-6 md:gap-10 justify-center"
+      >
+        <div className="flex flex-col gap-6 md:gap-10 md:mb-20 max-w-full md:max-w-[300px]">
+          <CheckoutCart
+            onClickCountButton={onClickCountButton}
+            removeCartItem={removeCartItem}
+            items={items}
+            loading={loading}
+          />
 
-            <CheckoutPersonalForm
-              className={loading ? 'opacity-40 pointer-events-none' : ''}
-            />
+          <CheckoutPersonalForm
+            className={loading ? 'opacity-40 pointer-events-none' : ''}
+          />
 
-            <CheckoutAddressForm
-              className={loading ? 'opacity-40 pointer-events-none' : ''}
-            />
-          </div>
+          <CheckoutAddressForm
+            className={loading ? 'opacity-40 pointer-events-none' : ''}
+          />
+        </div>
 
-          <div className="w-[450px]">
-            <CheckoutSidebar
-              totalAmount={totalAmount}
-              loading={loading || form.formState.isSubmitting}
-            />
-          </div>
+        <div className="w-full md:w-auto max-w-[470px] mb-20 md:mb-0">
+          <CheckoutSidebar
+            totalAmount={totalAmount}
+            loading={loading || form.formState.isSubmitting}
+          />
         </div>
       </form>
     </FormProvider>
